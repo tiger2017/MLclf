@@ -24,7 +24,7 @@ class MLclf():
         #self.datafile_dir = self.download_dir + '/miniimagenet/'
 
     @staticmethod
-    def miniimagenet_download(Download=True):
+    def miniimagenet_download(Download=False):
         if not os.path.isdir(MLclf.download_dir):
             os.makedirs(MLclf.download_dir)
             Download = True
