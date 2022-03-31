@@ -6,10 +6,12 @@ import random
 import torch
 import zipfile
 import shutil
+"""
 import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 import torchvision.models as models
+"""
 
 # previous file name was test_miniimagenet.py
 
