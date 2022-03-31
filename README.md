@@ -1,7 +1,7 @@
 ## The project Machine Learning CLassiFication (MLclf) 
 ### The project is to transform the mini-imagenet dataset which is initially created for the few-shot learning (other dataset will come soon...) to the format that fit the classification task.
 
-### The transformed dataset is divided into train, validation and test dataset, each dataset of which includes 100 classes.
+### The transformed dataset is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
 
 ##
 
