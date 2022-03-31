@@ -79,7 +79,7 @@ class MLclf():
         """
 
     @staticmethod
-    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True):
+    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True):
 
         if seed_value is not None:
             random.seed(seed_value)  # once seed is given, the random generator will be sequential numbers
@@ -125,9 +125,11 @@ class MLclf():
         data_load_all['class_dict'].update(data_load_val['class_dict'])
         data_load_all['class_dict'].update(data_load_test['class_dict'])
 
+        """
         miniimage_unpermutation_new_pkl = data_dir + 'miniimagenet_nonpermutation_nonsplit_new.pkl'
         with open(miniimage_unpermutation_new_pkl, 'wb') as f0:
             pickle.dump(data_load_all, f0)
+        """
 
         """ --------------------------"""
         key1 = list(data_load_all['class_dict'].keys())[0]
@@ -150,9 +152,11 @@ class MLclf():
             data_feature_label['images'], data_feature_label['labels'] = zip(*feature_label_zip)
             data_feature_label['images'], data_feature_label['labels'] = list(data_feature_label['images']), list(data_feature_label['labels'])
 
+        """
         miniimage_feature_label_pkl = data_dir + 'miniimagenet_feature_label_permutatioin_new.pkl'
         with open(miniimage_feature_label_pkl, 'wb') as f1:
             pickle.dump(data_feature_label, f1)
+        """
 
         n_samples_total = len(data_feature_label['labels']) # 60000
         data_feature_label_permutation_split = {}
@@ -166,9 +170,18 @@ class MLclf():
 
         data_feature_label_permutation_split['images_name'] = copy.deepcopy(data_feature_label['images_name'])
 
-        miniimage_feature_label_permutation_split_pkl = data_dir + 'miniimagenet_feature_label_permutatioin_split_new.pkl'
-        with open(miniimage_feature_label_permutation_split_pkl, 'wb') as f2:
-            pickle.dump(data_feature_label_permutation_split, f2)
+        data_feature_label_permutation_split['images_train'] = np.array(data_feature_label_permutation_split['images_train'])
+        data_feature_label_permutation_split['images_val'] = np.array(data_feature_label_permutation_split['images_val'])
+        data_feature_label_permutation_split['images_test'] = np.array(data_feature_label_permutation_split['images_test'])
+        data_feature_label_permutation_split['labels_train'] = np.array(data_feature_label_permutation_split['labels_train'])
+        data_feature_label_permutation_split['labels_val'] = np.array(data_feature_label_permutation_split['labels_val'])
+        data_feature_label_permutation_split['labels_test'] = np.array(data_feature_label_permutation_split['labels_test'])
+        data_feature_label_permutation_split['images_name'] = np.array(data_feature_label_permutation_split['images_name'])
+
+        if save_clf_data:
+            miniimage_feature_label_permutation_split_pkl = data_dir + 'miniimagenet_feature_label_permutatioin_split_new.pkl'
+            with open(miniimage_feature_label_permutation_split_pkl, 'wb') as f2:
+                pickle.dump(data_feature_label_permutation_split, f2)
         """ --------------------------"""
         """
     
@@ -203,34 +216,35 @@ class MLclf():
         images_train = torch.tensor(data_feature_label_permutation_split['images_train'])
         images_val = torch.tensor(data_feature_label_permutation_split['images_val'])
         images_test = torch.tensor(data_feature_label_permutation_split['images_test'])
-        print('cp00')
+
         labels_train = torch.tensor(data_feature_label_permutation_split['labels_train'])
         labels_val = torch.tensor(data_feature_label_permutation_split['labels_val'])
         labels_test = torch.tensor(data_feature_label_permutation_split['labels_test'])
-        print('cp01')
+
         train_dataset = torch.utils.data.TensorDataset(images_train, labels_train)
         val_dataset = torch.utils.data.TensorDataset(images_val, labels_val)
         test_dataset = torch.utils.data.TensorDataset(images_test, labels_test)
-        print('cp02')
+
         return train_dataset, val_dataset, test_dataset
 
     @staticmethod
-    def miniimagenet_clf_dataset(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True):
-        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle)
+    def miniimagenet_clf_dataset(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True):
+        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle, save_clf_data=save_clf_data)
         train_dataset, validation_dataset, test_dataset = MLclf.to_tensor_dataset(data_feature_label_permutation_split)
         return train_dataset, validation_dataset, test_dataset
 
 
 if __name__ == '__main__':
-    # data_dir = '/Users/xica3495/PycharmProjects/bfe/data/miniimagenet_pkl/'
-    #clf_data = miniimagenet_clf_data()
+    # clf_data = miniimagenet_clf_data()
     MLclf.miniimagenet_download(Download=False)
-    train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True)
+    train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, save_clf_data=True)
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
-    print('cp')
+
+    """
     for i, batch in enumerate(train_loader):
         print(i, batch)
         input("Press Enter to continue...")
+    """
 
     """
     transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])

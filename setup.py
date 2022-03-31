@@ -12,13 +12,13 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     url="https://github.com/tiger2017/mlclf",
-    version='0.1.0',
+    version='0.2.0',
     license='MIT',
     classifiers=[
         "Programming Language :: Python :: 3.9",
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering',
-        "Operating System :: MacOS / Linux",
+        "Operating System :: MacOS",
     ],
     python_requires=">=3.7",
     install_requires=['numpy', 'torch']
