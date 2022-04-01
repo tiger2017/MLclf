@@ -35,6 +35,7 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128
 
 # You can check the corresponding relations between labels and label_marks of the image data:
 # (Note: The relations can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
+
 labels_to_marks = MLclf.labels_to_marks
 marks_to_labels = MLclf.marks_to_labels
 ```
@@ -43,6 +44,8 @@ marks_to_labels = MLclf.marks_to_labels
 You can also obtain the raw data from the downloaded pkl files:
 ```python
 from MLclf import MLclf
+
 # The raw data of mini-imagenet can be also obtained via the function below:
+
 data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 ```
