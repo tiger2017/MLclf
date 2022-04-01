@@ -20,13 +20,16 @@ import torch
 
 # Download the original mini-imagenet data:
 MLclf.miniimagenet_download(Download=True)
-"""
-Transform the original data into the format that fits the task for classification:
-Note: If you want to keep the data format as the same as that for the meta-learning, just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
-"""
+
+
+# Transform the original data into the format that fits the task for classification:
+# Note: If you want to keep the data format as the same as that for the meta-learning, just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
+
 train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, save_clf_data=True)
 
+
 # The dataset can be transformed to dataloader via torch: 
+
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128, shuffle=True, num_workers=0)
 
 
