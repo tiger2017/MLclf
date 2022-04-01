@@ -39,16 +39,27 @@ class MLclf():
             url = 'https://data.deepai.org/miniimagenet.zip'
             urllib.request.urlretrieve(url, MLclf.download_dir+'/miniimagenet.zip')
             print('Completed downloading mini-imagenet data zipped file!')
-            print('Starting to unzip mini-imagenet data files ...')
+            print('Starting to unzip mini-imagenet data files 1...')
             with zipfile.ZipFile(MLclf.download_dir+'/miniimagenet.zip', 'r') as zip_ref:
                 zip_ref.extractall(MLclf.download_dir+'/miniimagenet')
             print('Completed unzipping mini-imagenet data files!')
         else:
             if not os.path.isdir(MLclf.download_dir+'/miniimagenet'):
-                print('Starting to unzip mini-imagenet data files ...')
-                with zipfile.ZipFile(MLclf.download_dir+'/miniimagenet.zip', 'r') as zip_ref:
-                    zip_ref.extractall(MLclf.download_dir+'/miniimagenet')
-                print('Completed unzipping mini-imagenet data files!')
+                print('Starting to unzip mini-imagenet data files 2...')
+                try:
+                    with zipfile.ZipFile(MLclf.download_dir+'/miniimagenet.zip', 'r') as zip_ref:
+                        zip_ref.extractall(MLclf.download_dir+'/miniimagenet')
+                    print('Completed unzipping mini-imagenet data files!')
+                except:
+                    print('zip file does not work, being re-downloading ...')
+                    import urllib.request
+                    url = 'https://data.deepai.org/miniimagenet.zip'
+                    urllib.request.urlretrieve(url, MLclf.download_dir + '/miniimagenet.zip')
+                    print('Completed downloading mini-imagenet data zipped file!')
+                    print('Starting to unzip mini-imagenet data files 1...')
+                    with zipfile.ZipFile(MLclf.download_dir + '/miniimagenet.zip', 'r') as zip_ref:
+                        zip_ref.extractall(MLclf.download_dir + '/miniimagenet')
+                    print('Completed unzipping mini-imagenet data files!')
             else:
                 if os.path.isfile(MLclf.download_dir+'/miniimagenet'+'/mini-imagenet-cache-train.pkl') and os.path.isfile(MLclf.download_dir+'/miniimagenet'+'/mini-imagenet-cache-val.pkl') and os.path.isfile(MLclf.download_dir+'/miniimagenet'+'/mini-imagenet-cache-test.pkl'):
                     print('The mini-imagenet pkl files have been existed, no unzipping is needed!')
@@ -57,10 +68,21 @@ class MLclf():
                     shutil.rmtree(MLclf.download_dir+'/miniimagenet')
                     # os.rmdir(download_dir+'/miniimagenet') # raise a error if the folder does not exist or not empty.
                     print('Completed removing '+MLclf.download_dir+'/miniimagenet!')
-                    print('Starting to unzip mini-imagenet data files ...')
-                    with zipfile.ZipFile(MLclf.download_dir + '/miniimagenet.zip', 'r') as zip_ref:
-                        zip_ref.extractall(MLclf.download_dir + '/miniimagenet')
-                    print('Completed unzipping mini-imagenet data files!')
+                    print('Starting to unzip mini-imagenet data files 3...')
+                    try:
+                        with zipfile.ZipFile(MLclf.download_dir + '/miniimagenet.zip', 'r') as zip_ref:
+                            zip_ref.extractall(MLclf.download_dir + '/miniimagenet')
+                        print('Completed unzipping mini-imagenet data files!')
+                    except:
+                        print('zip file does not work, being re-downloading ...')
+                        import urllib.request
+                        url = 'https://data.deepai.org/miniimagenet.zip'
+                        urllib.request.urlretrieve(url, MLclf.download_dir + '/miniimagenet.zip')
+                        print('Completed downloading mini-imagenet data zipped file!')
+                        print('Starting to unzip mini-imagenet data files 1...')
+                        with zipfile.ZipFile(MLclf.download_dir + '/miniimagenet.zip', 'r') as zip_ref:
+                            zip_ref.extractall(MLclf.download_dir + '/miniimagenet')
+                        print('Completed unzipping mini-imagenet data files!')
 
         """
         if os.path.isdir(Dir_singleDay):
@@ -79,7 +101,7 @@ class MLclf():
         """
 
     @staticmethod
-    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True):
+    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True, task_type='meta'):
 
         if seed_value is not None:
             random.seed(seed_value)  # once seed is given, the random generator will be sequential numbers
@@ -104,13 +126,19 @@ class MLclf():
         with open(dir_pickled_test, 'rb') as f:
             data_load_test = pickle.load(f)
 
+        if task_type == 'meta':
+            import os
+            current_dir = os.path.dirname(os.path.realpath(__file__))
+            print('The raw mini-imagenet datasets has been downloaded in the directory: ' + current_dir + data_dir[1:] +' , where you can find them!')
+            return data_load_train, data_load_val, data_load_test
+
         #aa.update(bb)
         n_samples_train = data_load_train['image_data'].shape[0]
         n_samples_val = data_load_val['image_data'].shape[0]
         n_samples_test = data_load_test['image_data'].shape[0]
 
-        #data_load_train['class_dict']
-
+        # data_load_train['class_dict']
+        # calculate the correct index for combine the ['class_dict']s of data_load_train, val and test.
         for i, (k, v_ls) in enumerate(data_load_val['class_dict'].items()):
             for idx, v in enumerate(v_ls):
                 data_load_val['class_dict'][k][idx] = data_load_val['class_dict'][k][idx] + n_samples_train
@@ -143,7 +171,7 @@ class MLclf():
         data_feature_label = {}
         data_feature_label['labels'] = labels_arr # 100 * 600 labels
         data_feature_label['images'] = copy.deepcopy(data_load_all['image_data']) # 100 * 600 images
-        data_feature_label['images_name'] = list(data_load_all['class_dict'].keys()) # 100 class names.
+        data_feature_label['labels_mark'] = list(data_load_all['class_dict'].keys()) # 100 class names.
 
 
         if shuffle:
@@ -168,7 +196,7 @@ class MLclf():
         data_feature_label_permutation_split['images_val'] = data_feature_label['images'][int(np.floor(n_samples_total * ratio_train)): int(np.floor(n_samples_total * (ratio_train + ratio_val)))]
         data_feature_label_permutation_split['images_test'] = data_feature_label['images'][int(np.floor(n_samples_total * (ratio_train + ratio_val))):]
 
-        data_feature_label_permutation_split['images_name'] = copy.deepcopy(data_feature_label['images_name'])
+        data_feature_label_permutation_split['labels_mark'] = copy.deepcopy(data_feature_label['labels_mark'])
 
         data_feature_label_permutation_split['images_train'] = np.array(data_feature_label_permutation_split['images_train'])
         data_feature_label_permutation_split['images_val'] = np.array(data_feature_label_permutation_split['images_val'])
@@ -176,7 +204,7 @@ class MLclf():
         data_feature_label_permutation_split['labels_train'] = np.array(data_feature_label_permutation_split['labels_train'])
         data_feature_label_permutation_split['labels_val'] = np.array(data_feature_label_permutation_split['labels_val'])
         data_feature_label_permutation_split['labels_test'] = np.array(data_feature_label_permutation_split['labels_test'])
-        data_feature_label_permutation_split['images_name'] = np.array(data_feature_label_permutation_split['images_name'])
+        data_feature_label_permutation_split['labels_mark'] = np.array(data_feature_label_permutation_split['labels_mark'])
 
         if save_clf_data:
             miniimage_feature_label_permutation_split_pkl = data_dir + 'miniimagenet_feature_label_permutatioin_split_new.pkl'
@@ -229,9 +257,15 @@ class MLclf():
 
     @staticmethod
     def miniimagenet_clf_dataset(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True):
-        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle, save_clf_data=save_clf_data)
+        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle, task_type='classical', save_clf_data=save_clf_data)
         train_dataset, validation_dataset, test_dataset = MLclf.to_tensor_dataset(data_feature_label_permutation_split)
-        return train_dataset, validation_dataset, test_dataset
+        labels_mark = data_feature_label_permutation_split['labels_mark']
+        return train_dataset, validation_dataset, test_dataset # , labels_mark
+
+    @staticmethod
+    def miniimagenet_data_raw(data_dir=None):
+        data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_convert2classification(data_dir=data_dir, task_type='meta')
+        return data_raw_train, data_raw_val, data_raw_test
 
 
 if __name__ == '__main__':
@@ -239,6 +273,8 @@ if __name__ == '__main__':
     MLclf.miniimagenet_download(Download=False)
     train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, save_clf_data=True)
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
+    
+    data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 
     """
     for i, batch in enumerate(train_loader):
