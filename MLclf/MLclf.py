@@ -18,6 +18,9 @@ import torchvision.models as models
 class MLclf():
     download_dir = './data_miniimagenet'
     datafile_dir = download_dir + '/miniimagenet/'
+    labels_mark = None
+    marks_to_labels = None
+    labels_to_marks = None
     def __init__(self):
         pass
         #self.download_dir = './data_miniimagenet'
@@ -101,7 +104,7 @@ class MLclf():
         """
 
     @staticmethod
-    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True, task_type='meta'):
+    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True, task_type='raw'):
 
         if seed_value is not None:
             random.seed(seed_value)  # once seed is given, the random generator will be sequential numbers
@@ -126,7 +129,7 @@ class MLclf():
         with open(dir_pickled_test, 'rb') as f:
             data_load_test = pickle.load(f)
 
-        if task_type == 'meta':
+        if task_type == 'raw':
             import os
             current_dir = os.path.dirname(os.path.realpath(__file__))
             print('The raw mini-imagenet datasets has been downloaded in the directory: ' + current_dir + data_dir[1:] +' , where you can find them!')
@@ -166,12 +169,15 @@ class MLclf():
         n_class = len(list(data_load_all['class_dict'].keys()))
         #print('n_class: ', n_class)
 
-        labels_arr = np.linspace(0, n_class-1, n_class, dtype=int)
-        labels_arr = np.repeat(labels_arr, repeats=n_samples_per_class, axis=None)
+        labels_arr_unique = np.linspace(0, n_class-1, n_class, dtype=int)
+        labels_arr = np.repeat(labels_arr_unique, repeats=n_samples_per_class, axis=None)
         data_feature_label = {}
         data_feature_label['labels'] = labels_arr # 100 * 600 labels
         data_feature_label['images'] = copy.deepcopy(data_load_all['image_data']) # 100 * 600 images
         data_feature_label['labels_mark'] = list(data_load_all['class_dict'].keys()) # 100 class names.
+
+
+
 
 
         if shuffle:
@@ -205,6 +211,14 @@ class MLclf():
         data_feature_label_permutation_split['labels_val'] = np.array(data_feature_label_permutation_split['labels_val'])
         data_feature_label_permutation_split['labels_test'] = np.array(data_feature_label_permutation_split['labels_test'])
         data_feature_label_permutation_split['labels_mark'] = np.array(data_feature_label_permutation_split['labels_mark'])
+        MLclf.labels_mark = data_feature_label_permutation_split['labels_mark']
+        MLclf.marks_to_labels = {}
+        MLclf.labels_to_marks = {}
+        for l, l_mark in zip(labels_arr_unique, MLclf.labels_mark):
+            MLclf.labels_to_marks[l] = l_mark
+        for l_mark, l in zip(MLclf.labels_mark, labels_arr_unique):
+            MLclf.marks_to_labels[l_mark] = l
+
 
         if save_clf_data:
             miniimage_feature_label_permutation_split_pkl = data_dir + 'miniimagenet_feature_label_permutatioin_split_new.pkl'
@@ -257,24 +271,29 @@ class MLclf():
 
     @staticmethod
     def miniimagenet_clf_dataset(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True):
-        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle, task_type='classical', save_clf_data=save_clf_data)
+        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle, task_type='classical_or_meta', save_clf_data=save_clf_data)
         train_dataset, validation_dataset, test_dataset = MLclf.to_tensor_dataset(data_feature_label_permutation_split)
         labels_mark = data_feature_label_permutation_split['labels_mark']
         return train_dataset, validation_dataset, test_dataset # , labels_mark
 
     @staticmethod
     def miniimagenet_data_raw(data_dir=None):
-        data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_convert2classification(data_dir=data_dir, task_type='meta')
+        data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_convert2classification(data_dir=data_dir, task_type='raw')
         return data_raw_train, data_raw_val, data_raw_test
 
 
 if __name__ == '__main__':
     # clf_data = miniimagenet_clf_data()
     MLclf.miniimagenet_download(Download=False)
+    # Transform the original data into the format that fits the task for classification:
+    # Note: If you want to keep the data format as the same as that for the meta-learning, just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
     train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, save_clf_data=True)
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
-    
+    print('labels_to_marks: ', MLclf.labels_to_marks)
+    print('marks_to_labels: ', MLclf.marks_to_labels)
+
     data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
+
 
     """
     for i, batch in enumerate(train_loader):

@@ -18,7 +18,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering',
-        "Operating System :: MacOS",
+        "Operating System :: OS Independent",
     ],
     python_requires=">=3.7",
     install_requires=['numpy', 'torch']
