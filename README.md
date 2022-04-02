@@ -8,6 +8,8 @@
 #### The transformed dataset is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
 ###
 The MLclf package can be found at: https://pypi.org/project/MLclf/
+
+The mini-imagenet source data can be accessed from: https://deepai.org/dataset/imagenet
 ###
 ##### How to install MLclf package:
 ```angular2html
