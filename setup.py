@@ -12,7 +12,7 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     url="https://github.com/tiger2017/mlclf",
-    version='0.2.6',
+    version='0.2.8',
     license='MIT',
     classifiers=[
         "Programming Language :: Python :: 3.9",

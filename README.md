@@ -21,6 +21,7 @@ pip install MLclf
 ```python
 from MLclf import MLclf
 import torch
+import torchvision.transforms as transforms
 
 # Download the original mini-imagenet data:
 MLclf.miniimagenet_download(Download=True)
@@ -29,8 +30,8 @@ MLclf.miniimagenet_download(Download=True)
 # Transform the original data into the format that fits the task for classification:
 # Note: If you want to keep the data format as the same as that for the meta-learning, just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
 
-train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, save_clf_data=True)
-
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, transform=transform, save_clf_data=True)
 
 # The dataset can be transformed to dataloader via torch: 
 
