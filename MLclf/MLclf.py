@@ -6,6 +6,7 @@ import random
 import torch
 import zipfile
 import shutil
+import torchvision.transforms as transforms
 """
 import torch.optim as optim
 import torchvision
@@ -104,7 +105,7 @@ class MLclf():
         """
 
     @staticmethod
-    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True, task_type='raw'):
+    def miniimagenet_convert2classification(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True, task_type='raw', transform=None):
 
         if seed_value is not None:
             random.seed(seed_value)  # once seed is given, the random generator will be sequential numbers
@@ -176,15 +177,16 @@ class MLclf():
         data_feature_label['images'] = copy.deepcopy(data_load_all['image_data']) # 100 * 600 images
         data_feature_label['labels_mark'] = list(data_load_all['class_dict'].keys()) # 100 class names.
 
+        data_feature_label['images'] = np.array(data_feature_label['images'])
+        data_feature_label['labels_mark'] = np.array(data_feature_label['labels_mark'])
 
-
-
+        data_feature_label['images'] = MLclf.feature_norm(data_feature_label['images'], transform=transform)
 
         if shuffle:
             feature_label_zip = list(zip(data_feature_label['images'], data_feature_label['labels']))
             random.shuffle(feature_label_zip)
             data_feature_label['images'], data_feature_label['labels'] = zip(*feature_label_zip)
-            data_feature_label['images'], data_feature_label['labels'] = list(data_feature_label['images']), list(data_feature_label['labels'])
+            data_feature_label['images'], data_feature_label['labels'] = np.array(data_feature_label['images']), np.array(data_feature_label['labels'])
 
         """
         miniimage_feature_label_pkl = data_dir + 'miniimagenet_feature_label_permutatioin_new.pkl'
@@ -203,7 +205,7 @@ class MLclf():
         data_feature_label_permutation_split['images_test'] = data_feature_label['images'][int(np.floor(n_samples_total * (ratio_train + ratio_val))):]
 
         data_feature_label_permutation_split['labels_mark'] = copy.deepcopy(data_feature_label['labels_mark'])
-
+        """
         data_feature_label_permutation_split['images_train'] = np.array(data_feature_label_permutation_split['images_train'])
         data_feature_label_permutation_split['images_val'] = np.array(data_feature_label_permutation_split['images_val'])
         data_feature_label_permutation_split['images_test'] = np.array(data_feature_label_permutation_split['images_test'])
@@ -211,6 +213,7 @@ class MLclf():
         data_feature_label_permutation_split['labels_val'] = np.array(data_feature_label_permutation_split['labels_val'])
         data_feature_label_permutation_split['labels_test'] = np.array(data_feature_label_permutation_split['labels_test'])
         data_feature_label_permutation_split['labels_mark'] = np.array(data_feature_label_permutation_split['labels_mark'])
+        """
         MLclf.labels_mark = data_feature_label_permutation_split['labels_mark']
         MLclf.marks_to_labels = {}
         MLclf.labels_to_marks = {}
@@ -254,6 +257,26 @@ class MLclf():
         return data_feature_label_permutation_split
 
     @staticmethod
+    def feature_norm(feature, transform=None):
+        """
+        This function transform the dimension of feature from (batch_size, H, W, C) to (batch_size, C, H, W).
+        :param feature: feature / mini-imagenet's images.
+        :return: transformed feature.
+        """
+        #
+        if transform is None:
+            transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+        else:
+            transform = transform
+        feature_shape = np.shape(feature)
+        feature_output = torch.empty((feature_shape[0], feature_shape[3], feature_shape[1], feature_shape[2]))
+        for i, feature_i in enumerate(feature):
+            feature_output[i] = transform(feature_i)
+            # feature is a tensor here.
+        return feature_output.numpy()
+
+
+    @staticmethod
     def to_tensor_dataset(data_feature_label_permutation_split):
         images_train = torch.tensor(data_feature_label_permutation_split['images_train'])
         images_val = torch.tensor(data_feature_label_permutation_split['images_val'])
@@ -270,8 +293,9 @@ class MLclf():
         return train_dataset, val_dataset, test_dataset
 
     @staticmethod
-    def miniimagenet_clf_dataset(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True):
-        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle, task_type='classical_or_meta', save_clf_data=save_clf_data)
+    def miniimagenet_clf_dataset(data_dir=None, ratio_train=0.6, ratio_val=0.2, seed_value = None, shuffle=True, save_clf_data=True, transform=None):
+        data_feature_label_permutation_split = MLclf.miniimagenet_convert2classification(data_dir=data_dir, ratio_train=ratio_train, ratio_val=ratio_val, seed_value=seed_value, shuffle=shuffle, task_type='classical_or_meta', save_clf_data=save_clf_data, transform=transform)
+
         train_dataset, validation_dataset, test_dataset = MLclf.to_tensor_dataset(data_feature_label_permutation_split)
         labels_mark = data_feature_label_permutation_split['labels_mark']
         return train_dataset, validation_dataset, test_dataset # , labels_mark
@@ -287,7 +311,8 @@ if __name__ == '__main__':
     MLclf.miniimagenet_download(Download=False)
     # Transform the original data into the format that fits the task for classification:
     # Note: If you want to keep the data format as the same as that for the meta-learning, just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
-    train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, save_clf_data=True)
+    transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, save_clf_data=True, transform=transform)
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
     print('labels_to_marks: ', MLclf.labels_to_marks)
     print('marks_to_labels: ', MLclf.marks_to_labels)

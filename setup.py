@@ -12,7 +12,7 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     url="https://github.com/tiger2017/mlclf",
-    version='0.2.5',
+    version='0.2.6',
     license='MIT',
     classifiers=[
         "Programming Language :: Python :: 3.9",
@@ -21,5 +21,5 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.7",
-    install_requires=['numpy', 'torch']
+    install_requires=['numpy', 'torch', 'torchvision']
 )
