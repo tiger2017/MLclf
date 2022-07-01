@@ -22,6 +22,21 @@ Welcome to create an issue to the repository of MLclf on GitHub, and I will add 
 
 
 The mini-imagenet source data can be accessed from: https://deepai.org/dataset/imagenet
+
+
+### Summary
+
+* [Requirements](#requirements)
+* [Installation](#How to install MLclf package:)
+* [Usage](#How to use this package:)
+
+### Requirements
+
+- Python 3.x
+- numpy
+- torchvision
+
+
 ###
 ##### How to install MLclf package:
 ```angular2html
