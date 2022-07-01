@@ -21,7 +21,7 @@ The MLclf package can be found at: https://github.com/tiger2017/MLclf
 Welcome to create an issue to the repository of MLclf on GitHub, and I will add more datasets loading functions based on the issues.
 
 
-The mini-imagenet source data can be accessed from: https://deepai.org/dataset/imagenet
+The mini-imagenet source data can be also accessed from: https://deepai.org/dataset/imagenet (there is no need to manually download it if you use MLclf).
 
 
 ### Summary
