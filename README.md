@@ -1,5 +1,5 @@
 ![mini-ImageNet Logo](https://github.com/tiger2017/MLclf/blob/master/mini-imagenet.png)
-
+![mini-ImageNet Logo](https://github.com/tiger2017/MLclf/blob/master/tiny-imagenet.png)
 ## The project Machine Learning CLassiFication (MLclf) 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
