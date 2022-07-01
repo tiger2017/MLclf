@@ -27,7 +27,7 @@ The mini-imagenet source data can be accessed from: https://deepai.org/dataset/i
 ### Summary
 
 * [Requirements](#requirements)
-* [Installation](#How to install MLclf package)
+* [Installation](#installation)
 * [Usage](#usage)
 
 ### Requirements
@@ -36,15 +36,14 @@ The mini-imagenet source data can be accessed from: https://deepai.org/dataset/i
 - numpy
 - torchvision
 
-### How to install MLclf package
-
+### Installation
+How to install MLclf package:
 ```angular2html
 pip install MLclf
 ```
 
 ### Usage
 How to use this package:
-
 ```python
 from MLclf import MLclf
 import torch
