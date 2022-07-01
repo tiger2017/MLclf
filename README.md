@@ -9,11 +9,11 @@
 
 #### The project is to transform the mini-imagenet dataset which is initially created for the few-shot learning (other datasets, e.g. tiny-imagenet, will come soon...) to the format that fit the classical classification task. You can also use this package to download and obtain the raw data of the mini-imagenet dataset (for few-shot learning tasks).
 #### The original dataset includes totally 100 classes, but due to its intention to meta-learning or few-shot learning, the train/validatioin/test dataset contains different classes. They have respectively 64/16/20 classes.
-
+##
 
 #### In order to make the mini-imagenet dataset fit the format requirement for the classical classification task. MLclf made a proper transformation (recombination and splitting) of the original mini-imagenet dataset.
 #### The transformed dataset is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
-
+###
 
 The MLclf package can be found at: https://github.com/tiger2017/MLclf 
                             or at: https://pypi.org/project/MLclf/
@@ -67,6 +67,7 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128
 labels_to_marks = MLclf.labels_to_marks
 marks_to_labels = MLclf.marks_to_labels
 ```
+####
 
 You can also obtain the raw data from the downloaded pkl files:
 ```python
@@ -77,5 +78,5 @@ from MLclf import MLclf
 data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 ```
 
-Here is a random joke that'll make you laugh!
+## Here is a random joke that'll make you laugh!
 ![Jokes Card](https://readme-jokes.vercel.app/api)
