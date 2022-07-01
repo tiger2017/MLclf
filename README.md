@@ -25,7 +25,6 @@ The mini-imagenet source data can be accessed from: https://deepai.org/dataset/i
 
 
 ### Summary
-
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Usage](#usage)
@@ -68,7 +67,6 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128
 labels_to_marks = MLclf.labels_to_marks
 marks_to_labels = MLclf.marks_to_labels
 ```
-####
 
 You can also obtain the raw data from the downloaded pkl files:
 ```python
