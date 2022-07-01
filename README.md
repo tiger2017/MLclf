@@ -38,12 +38,12 @@ The mini-imagenet source data can be accessed from: https://deepai.org/dataset/i
 
 
 ###
-##### How to install MLclf package:
+### How to install MLclf package:
 ```angular2html
 pip install MLclf
 ```
 
-##### How to use this package:
+### How to use this package:
 
 ```python
 from MLclf import MLclf
