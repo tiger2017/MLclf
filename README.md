@@ -1,4 +1,4 @@
-![mini-ImageNet Logo](https://github.com/tiger2017/MLclf/blob/master/mini-imagenet)
+![mini-ImageNet Logo](https://github.com/tiger2017/MLclf/blob/master/mini-imagenet.png)
 
 ## The project Machine Learning CLassiFication (MLclf) 
 
