@@ -3,7 +3,7 @@
 ## The project Machine Learning CLassiFication (MLclf) 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/mlclf)](https://pypi.org/project/mlclf/)
 [![Downloads](https://static.pepy.tech/personalized-badge/mlclf?period=total&units=international_system&left_color=blue&right_color=green&left_text=Downloads)](https://pepy.tech/project/mlclf)
 
