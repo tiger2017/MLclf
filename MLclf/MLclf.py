@@ -273,8 +273,10 @@ class MLclf():
         """
         #
         if transform is None:
-            transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-            print('transforms is predefined as None, so the default transforms is called: ', transform)
+            transform = transforms.Compose([transforms.ToTensor()])
+            print('The argument transform is None, so only tensor converted but no normalization is done!')
+            # transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+            # print('transforms is predefined as None, so the default transforms is called: ', transform)
         else:
             transform = transform
         feature_shape = np.shape(feature)
@@ -282,6 +284,7 @@ class MLclf():
         for i, feature_i in enumerate(feature):
             feature_output[i] = transform(feature_i)
             # feature is a tensor here.
+        # print('type(feature_output): ', type(feature_output))
         return feature_output.numpy()
 
 
