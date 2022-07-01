@@ -27,8 +27,8 @@ The mini-imagenet source data can be accessed from: https://deepai.org/dataset/i
 ### Summary
 
 * [Requirements](#requirements)
-* [Installation](#How to install MLclf package:)
-* [Usage](#How to use this package:)
+* [Installation](#How to install MLclf package)
+* [Usage](#How to use this package)
 
 ### Requirements
 
