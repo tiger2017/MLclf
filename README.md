@@ -16,8 +16,7 @@
 ###
 
 The MLclf package can be found at: https://github.com/tiger2017/MLclf 
-or 
-https://pypi.org/project/MLclf/
+                            or at: https://pypi.org/project/MLclf/
 
 Welcome to create an issue to the repository of MLclf on GitHub, and I will add more datasets loading functions based on the issues.
 
