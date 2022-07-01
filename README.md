@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/mlclf)](https://pypi.org/project/mlclf/)
-[![Downloads](https://pepy.tech/badge/mlclf)](https://pepy.tech/project/mlclf)
+[![Downloads](https://static.pepy.tech/personalized-badge/mlclf?period=total&units=international_system&left_color=orange&right_color=green&left_text=Downloads)](https://pepy.tech/project/mlclf)
 
 #### The project is to transform the mini-imagenet dataset which is initially created for the few-shot learning (other datasets, e.g. tiny-imagenet, will come soon...) to the format that fit the classical classification task. You can also use this package to download and obtain the raw data of the mini-imagenet dataset (for few-shot learning tasks).
 
