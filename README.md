@@ -27,8 +27,8 @@ The mini-imagenet source data can be accessed from: https://deepai.org/dataset/i
 ### Summary
 
 * [Requirements](#requirements)
-* [Installation](#Installation)
-* [Usage](#Usage)
+* [Installation](#installation)
+* [Usage](#usage)
 
 ### Requirements
 
