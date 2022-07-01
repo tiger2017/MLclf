@@ -180,8 +180,8 @@ class MLclf():
         data_feature_label['images'] = np.array(data_feature_label['images'])
         data_feature_label['labels_mark'] = np.array(data_feature_label['labels_mark'])
 
-        if transform is not None:
-            data_feature_label['images'] = MLclf.feature_norm(data_feature_label['images'], transform=transform)
+        ## if transform is not None:
+        data_feature_label['images'] = MLclf.feature_norm(data_feature_label['images'], transform=transform)
 
         if shuffle:
             feature_label_zip = list(zip(data_feature_label['images'], data_feature_label['labels']))
@@ -229,11 +229,12 @@ class MLclf():
             with open(miniimage_feature_label_permutation_split_pkl, 'wb') as f2:
                 pickle.dump(data_feature_label_permutation_split, f2)
         """ --------------------------"""
+        """
         from requests import get
         import socket
         hostname = socket.gethostname()
         getadd = get('https://api.ipify.org').content.decode('utf8')
-
+        """
 
         """
         
@@ -273,6 +274,7 @@ class MLclf():
         #
         if transform is None:
             transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+            print('transforms is predefined as None, so the default transforms is called: ', transform)
         else:
             transform = transform
         feature_shape = np.shape(feature)
