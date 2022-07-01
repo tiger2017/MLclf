@@ -58,7 +58,7 @@ MLclf.miniimagenet_download(Download=True)
 # Note: If you want to keep the data format as the same as that for the meta-learning or few-shot learning (original format), just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
 
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-# You can also set transform = None, if you do not want the data being normalized.
+# The argument transform is a optional keyword. You can also set transform = None or simply not set transform, if you do not want the data being normalized.
 train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, transform=transform, save_clf_data=True)
 
 # The dataset can be transformed to dataloader via torch: 
