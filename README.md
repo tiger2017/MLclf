@@ -15,8 +15,8 @@
 #### The transformed dataset is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
 ###
 
-The MLclf package can be found at: https://github.com/tiger2017/MLclf
-or 
+The MLclf package can be found at: https://github.com/tiger2017/MLclf   
+or   
 https://pypi.org/project/MLclf/
 
 Welcome to create an issue to the repository of MLclf on GitHub, and I will add more datasets loading functions based on the issues.
