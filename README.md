@@ -44,7 +44,7 @@ pip install MLclf
 ```
 
 ### Usage
-How to use this package:
+How to use this package for mini-imagenet:
 ```python
 from MLclf import MLclf
 import torch
@@ -58,7 +58,7 @@ MLclf.miniimagenet_download(Download=True)
 # Note: If you want to keep the data format as the same as that for the meta-learning or few-shot learning (original format), just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
 
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-# The argument transform is a optional keyword. You can also set transform = None or simply not set transform, if you do not want the data being normalized.
+# The argument transform is a optional keyword. You can also set transform = None or simply not set transform, if you do not want the data being standardized and only want a normalization b/t [0,1].
 train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, transform=transform, save_clf_data=True)
 
 # The dataset can be transformed to dataloader via torch: 
@@ -69,12 +69,12 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128
 # You can check the corresponding relations between labels and label_marks of the image data:
 # (Note: The relations can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
 
-labels_to_marks = MLclf.labels_to_marks
-marks_to_labels = MLclf.marks_to_labels
+labels_to_marks = MLclf.labels_to_marks['mini-imagenet']
+marks_to_labels = MLclf.marks_to_labels['mini-imagenet']
 ```
 ####
 
-You can also obtain the raw data from the downloaded pkl files:
+You can also obtain the raw data of mini-imagenet from the downloaded pkl files:
 ```python
 from MLclf import MLclf
 
@@ -82,6 +82,45 @@ from MLclf import MLclf
 
 data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 ```
+
+How to use this package for tiny-imagenet for the traditional classification task (similarly as mini-imagenet):
+```python
+from MLclf import MLclf
+import torch
+import torchvision.transforms as transforms
+
+MLclf.tinyimagenet_download(Download=False)
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2,
+                                                                                     seed_value=None, shuffle=True,
+                                                                                     transform=transform,
+                                                                                     save_clf_data=True,
+                                                                                     few_shot=False)
+train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
+
+# You can check the corresponding relations between labels and label_marks of the image data:
+# (Note: The relations can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
+
+labels_to_marks = MLclf.labels_to_marks['tiny-imagenet']
+marks_to_labels = MLclf.marks_to_labels['tiny-imagenet']
+
+
+data_raw_train, data_raw_val, data_raw_test = MLclf.tinyimagenet_data_raw()
+```
+
+If you want to use tiny-imagenet for the few-shot learning task, just change few_shot=True, for example:
+```python
+train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2,
+                                                                                     seed_value=None, shuffle=True,
+                                                                                     transform=transform,
+                                                                                     save_clf_data=True,
+                                                                                     few_shot=True)
+# only original training dataset is used as the whole dataset of the few-shot learning task, so 200 classes in total.
+# in this example, 120 classes as training dataset, 40 classes as validation dataset and 40 classes as testing dataset, with 500 images for each class.
+```
+
+
+
 
 ## Here is a random joke that'll make you laugh!
 ![Jokes Card](https://readme-jokes.vercel.app/api)
