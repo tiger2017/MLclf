@@ -12,12 +12,12 @@
 
 > 2. transform the tiny-imagenet dataset to the format that fit the classical classification task, which can be more easily used (being able to directly input to the Pytorch dataloader) compared to the original raw format.
 
-- [x] The original dataset of mini-imagenet includes totally 100 classes, but due to its intention to meta-learning or few-shot learning, the train/validation/test dataset contains different classes. They have respectively 64/16/20 classes.
-- [x] The original dataset of tiny-imagenet includes totally 200 classes, the train/validation/test dataset contains all classes. They have respectively 100000/10000/10000 images. For example, the training dataset has 500 images for each class.
+#### - [x] The original dataset of mini-imagenet includes totally 100 classes, but due to its intention to meta-learning or few-shot learning, the train/validation/test dataset contains different classes. They have respectively 64/16/20 classes.
+#### The original dataset of tiny-imagenet includes totally 200 classes, the train/validation/test dataset contains all classes. They have respectively 100000/10000/10000 images. For example, the training dataset has 500 images for each class.
 
-- [x] In order to make the mini/tiny-imagenet dataset fit the format requirement for the classical classification task. MLclf made a proper transformation (recombination and splitting) of the original mini/tiny-imagenet dataset.
-- [x] The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
-- [x] The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 200 classes. Each image has the size 64x64 pixels with 3 channels.
+#### In order to make the mini/tiny-imagenet dataset fit the format requirement for the classical classification task. MLclf made a proper transformation (recombination and splitting) of the original mini/tiny-imagenet dataset.
+#### The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
+#### The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 200 classes. Each image has the size 64x64 pixels with 3 channels.
 
 The MLclf package can be found at: https://github.com/tiger2017/MLclf 
                             or at: https://pypi.org/project/MLclf/
