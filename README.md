@@ -94,7 +94,7 @@ from MLclf import MLclf
 import torch
 import torchvision.transforms as transforms
 
-MLclf.tinyimagenet_download(Download=False)
+MLclf.tinyimagenet_download(Download=True)
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2,
                                                                                      seed_value=None, shuffle=True,
