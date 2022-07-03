@@ -12,7 +12,7 @@
 
 > 2. transform the tiny-imagenet dataset to the format that fit the classical classification task, which can be more easily used (being able to directly input to the Pytorch dataloader) compared to the original raw format.
 
-> 3. tranform other popular dataset to the format that fit the classical classification task or the few-shot learning / zero-shot learning / transfer learning tasks (Feel free to leave your message if your have any ideas for the selection of potential datasets).
+> 3. tranform other popular datasets to the format that fit the classical classification task or the few-shot learning / zero-shot learning / transfer learning tasks (Feel free to leave your message if your have any ideas for the selection of potential datasets).
 
 #### The original dataset of mini-imagenet includes totally 100 classes, but due to its intention to meta-learning or few-shot learning, the train/validation/test dataset contains different classes. They have respectively 64/16/20 classes.
 #### The original dataset of tiny-imagenet includes totally 200 classes, the train/validation/test dataset contains all classes. They have respectively 100000/10000/10000 images. For example, the training dataset has 500 images for each class.
