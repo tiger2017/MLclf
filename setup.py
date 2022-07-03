@@ -7,7 +7,7 @@ setup(
     name='MLclf',
     author="Daniel Cao",
     author_email="supercxman@gmail.com",
-    description='mini-imagenet dataset transformed to fit classification task or keep the format for meta-learning tasks.',
+    description='mini-imagenet and tiny-imagenet dataset transformed to fit classification task or keep the format for few-shot learning / meta-learning tasks.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
