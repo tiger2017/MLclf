@@ -12,6 +12,7 @@ Training the full imagenet dataset (1k classes) needs a high computational resou
 
 > 1. download the mini-imagenet and tiny-imagenet easily and directly with only one line!
 ```python
+from MLclf import MLclf
 MLclf.miniimagenet_download(Download=True)
 MLclf.tinyimagenet_download(Download=True)
 ```
