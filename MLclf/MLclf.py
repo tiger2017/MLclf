@@ -522,6 +522,8 @@ class MLclf():
             data_feature_label_permutation_split['labels_val'] = data_load_train['label'][int(np.floor(n_samples_total_fewshot * ratio_train)): int(np.floor(n_samples_total_fewshot * (ratio_train + ratio_val)))]
             data_feature_label_permutation_split['labels_test'] = data_load_train['label'][int(np.floor(n_samples_total_fewshot * (ratio_train + ratio_val))):]
 
+            data_load_train['image_data'] = MLclf._feature_norm(data_load_train['image_data'], transform=transform)
+
             data_feature_label_permutation_split['images_train'] = data_load_train['image_data'][0: int(np.floor(n_samples_total_fewshot * ratio_train))]
             data_feature_label_permutation_split['images_val'] = data_load_train['image_data'][int(np.floor(n_samples_total_fewshot * ratio_train)): int(np.floor(n_samples_total_fewshot * (ratio_train + ratio_val)))]
             data_feature_label_permutation_split['images_test'] = data_load_train['image_data'][int(np.floor(n_samples_total_fewshot * (ratio_train + ratio_val))):]
@@ -601,7 +603,7 @@ class MLclf():
 
 
 if __name__ == '__main__':
-
+    """
     # clf_data = miniimagenet_clf_data()
     MLclf.miniimagenet_download(Download=False)
     # Transform the original data into the format that fits the task for classification:
@@ -616,7 +618,7 @@ if __name__ == '__main__':
     data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 
     print('train_dataset: ', train_dataset, np.shape(train_dataset))
-
+    """
 
     # tiny-imagenet:
     MLclf.tinyimagenet_download(Download=False)
@@ -625,7 +627,7 @@ if __name__ == '__main__':
                                                                                      seed_value=None, shuffle=True,
                                                                                      transform=transform,
                                                                                      save_clf_data=True,
-                                                                                     few_shot=True)
+                                                                                     few_shot=False)
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
     print('labels_to_marks of tiny-imagenet: ', MLclf.labels_to_marks['tiny-imagenet'])
     print('marks_to_labels of tiny-imagenet: ', MLclf.marks_to_labels['tiny-imagenet'])
@@ -642,11 +644,11 @@ if __name__ == '__main__':
     twine upload dist/*
     """
 
-    """
+
     for i, batch in enumerate(train_loader):
         print(i, batch)
         input("Press Enter to continue...")
-    """
+
 
     """
     transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
