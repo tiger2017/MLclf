@@ -108,7 +108,7 @@ train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
 
 # You can check the corresponding relations between labels and label_marks of the image data:
-# (Note: The relations below can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
+# (Note: The relations below can be obtained after MLclf.tinyimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
 
 labels_to_marks = MLclf.labels_to_marks['tiny-imagenet']
 marks_to_labels = MLclf.marks_to_labels['tiny-imagenet']
