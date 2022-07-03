@@ -11,10 +11,10 @@ Training the full imagenet dataset (1k classes) needs a high computational resou
 #### The purpose of this project is:
 
 > 1. download the mini-imagenet and tiny-imagenet easily and directly with only one line!
-     e.g. 
-     ```python
-     MLclf.miniimagenet_download(Download=True)
-     ```
+```python
+MLclf.miniimagenet_download(Download=True)
+MLclf.tinyimagenet_download(Download=True)
+```
 
 > 2. transform the mini-imagenet dataset which is initially created for the few-shot learning to the format that fit the classical classification task. You can also use this package to download and obtain the raw data of the mini-imagenet dataset (for few-shot learning tasks).
 
