@@ -37,6 +37,8 @@ The mini-imagenet source data can be also accessed from: https://deepai.org/data
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Usage](#usage)
+  * [mini-imagenet](#mini-imagenet)
+  * [tiny-imagenet](#tiny-imagenet)
 
 ### Requirements
 
@@ -53,6 +55,7 @@ pip install MLclf
 ```
 
 ### Usage
+#### mini-imagenet
 How to use this package for **mini-imagenet**:
 ```python
 from MLclf import MLclf
@@ -92,6 +95,7 @@ from MLclf import MLclf
 data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 ```
 
+#### tiny-imagenet
 How to use this package for **tiny-imagenet** for the traditional classification task (similarly as mini-imagenet):
 ```python
 from MLclf import MLclf
