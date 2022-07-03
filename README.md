@@ -120,8 +120,8 @@ train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset
                                                                                      transform=transform,
                                                                                      save_clf_data=True,
                                                                                      few_shot=True)
-# only original training dataset is used as the whole dataset of the few-shot learning task, so 200 classes in total.
-# in this few-shot learning task's example, 120 classes as training dataset, 40 classes as validation dataset and 40 classes as testing dataset, with 500 images for each class.
+# only original training dataset is used as the whole dataset of the few-shot learning task, so 200 classes in total,
+# and in this few-shot learning task's example, 120 classes as training dataset, 40 classes as validation dataset and 40 classes as testing dataset, with 500 images for each class.
 ```
 
 
