@@ -636,7 +636,11 @@ if __name__ == '__main__':
 
 
 
-
+    """
+    Note for updating to PyPi website:
+    python3 setup.py sdist bdist_wheel
+    twine upload dist/*
+    """
 
     """
     for i, batch in enumerate(train_loader):
