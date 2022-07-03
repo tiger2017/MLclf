@@ -17,7 +17,9 @@
 
 #### In order to make the mini/tiny-imagenet dataset fit the format requirement for the classical classification task. MLclf made a proper transformation (recombination and splitting) of the original mini/tiny-imagenet dataset.
 #### The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
-#### The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 200 classes. Each image has the size 64x64 pixels with 3 channels.
+#### The transformed dataset of tiny-imagenet is divided into train, validation and test dataset, each dataset of which includes 200 classes. Each image has the size 64x64 pixels with 3 channels.
+
+#### Notice: The provider of tiny-imagenet dataset does not public the labels of testing dataset, so there is no labels for the original raw testing dataset.
 
 The MLclf package can be found at: https://github.com/tiger2017/MLclf 
                             or at: https://pypi.org/project/MLclf/
@@ -56,8 +58,7 @@ import torch
 import torchvision.transforms as transforms
 
 # Download the original mini-imagenet data:
-MLclf.miniimagenet_download(Download=True)
-
+MLclf.miniimagenet_download(Download=True) # only need to run this line before you download the mini-imagenet dataset for the first time.
 
 # Transform the original data into the format that fits the task for classification:
 # Note: If you want to keep the data format as the same as that for the meta-learning or few-shot learning (original format), just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
@@ -94,7 +95,7 @@ from MLclf import MLclf
 import torch
 import torchvision.transforms as transforms
 
-MLclf.tinyimagenet_download(Download=True)
+MLclf.tinyimagenet_download(Download=True) # only need to run this line before you download the tiny-imagenet dataset for the first time.
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2,
                                                                                      seed_value=None, shuffle=True,
