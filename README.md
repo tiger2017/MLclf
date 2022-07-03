@@ -7,13 +7,15 @@
 [![PyPI](https://img.shields.io/pypi/v/mlclf)](https://pypi.org/project/mlclf/)
 [![Downloads](https://static.pepy.tech/personalized-badge/mlclf?period=total&units=international_system&left_color=blue&right_color=green&left_text=Downloads)](https://pepy.tech/project/mlclf)
 
-Because training the full imagenet dataset (1k classes) needs a high computational resource, it is usually hard to quickly check your model on your local computer. The mini-imagenet (100 classes) and tiny-imagenet (200 classes) are way more friendly on a local or personal computer, but the format of them are not friendly for such a usage, e.g. the original raw mini-imagenet data is divided into training/validation/testing sets for the few-shot or meta learning task.
+Because training the full imagenet dataset (1k classes) needs a high computational resource, it is usually hard to quickly check your model on your local computer. The mini-imagenet (100 classes) and tiny-imagenet (200 classes) are way more friendly on a local or personal computer, but the format of them are not friendly for the classical or traditional classification task, e.g. the original raw mini-imagenet data is divided into training/validation/testing sets for the few-shot or meta learning task.
 #### The purpose of this project is:
 > 1. transform the mini-imagenet dataset which is initially created for the few-shot learning to the format that fit the classical classification task. You can also use this package to download and obtain the raw data of the mini-imagenet dataset (for few-shot learning tasks).
 
 > 2. transform the tiny-imagenet dataset to the format that fit the classical classification task, which can be more easily used (being able to directly input to the Pytorch dataloader) compared to the original raw format.
 
 > 3. tranform other popular datasets to the format that fit the classical classification task or the few-shot learning / zero-shot learning / transfer learning tasks (Feel free to leave your message if your have any ideas for the selection of potential datasets).
+
+Besides the transformation above, the format for few-shot / meta learning task can be also extracted in MLclf, see more detailed in the following instruction.
 
 #### The original dataset of mini-imagenet includes totally 100 classes, but due to its intention to meta-learning or few-shot learning, the train/validation/test dataset contains different classes. They have respectively 64/16/20 classes.
 #### The original dataset of tiny-imagenet includes totally 200 classes, the train/validation/test dataset contains all classes. They have respectively 100000/10000/10000 images. For example, the training dataset has 500 images for each class.
