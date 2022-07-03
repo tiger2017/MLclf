@@ -73,7 +73,7 @@ import torch
 import torchvision.transforms as transforms
 
 # Download the original mini-imagenet data:
-MLclf.miniimagenet_download(Download=True) # only need to run this line before you download the mini-imagenet dataset for the first time.
+MLclf.miniimagenet_download(Download=True) # only need to run this line before you download the mini-imagenet dataset for the first time. And the data will be downloaded to a newly-created folder in the current directory.
 
 # Transform the original data into the format that fits the task for classification:
 # Note: If you want to keep the data format as the same as that for the meta-learning or few-shot learning (original format), just set ratio_train=0.64, ratio_val=0.16, shuffle=False.
