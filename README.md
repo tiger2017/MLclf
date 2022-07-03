@@ -67,15 +67,16 @@ MLclf.miniimagenet_download(Download=True) # only need to run this line before y
 
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 # The argument transform is a optional keyword. You can also set transform = None or simply not set transform, if you do not want the data being standardized and only want a normalization b/t [0,1].
+# The line below transformed the mini-imagenet data into the format for the traditional classification task, e.g. 60% training, 20% validation and 20% testing, with 100 classes in each of training/validation/testing set.
 train_dataset, validation_dataset, test_dataset = MLclf.miniimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2, seed_value=None, shuffle=True, transform=transform, save_clf_data=True)
 
-# The dataset can be transformed to dataloader via torch: 
+# The dataset can be easily converted to dataloader via torch: 
 
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=128, shuffle=True, num_workers=0)
 
 
 # You can check the corresponding relations between labels and label_marks of the image data:
-# (Note: The relations can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
+# (Note: The relations below can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
 
 labels_to_marks = MLclf.labels_to_marks['mini-imagenet']
 marks_to_labels = MLclf.marks_to_labels['mini-imagenet']
@@ -107,7 +108,7 @@ train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
 
 # You can check the corresponding relations between labels and label_marks of the image data:
-# (Note: The relations can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
+# (Note: The relations below can be obtained after MLclf.miniimagenet_clf_dataset is called, otherwise they will be returned as None instead.)
 
 labels_to_marks = MLclf.labels_to_marks['tiny-imagenet']
 marks_to_labels = MLclf.marks_to_labels['tiny-imagenet']

@@ -22,8 +22,8 @@ class MLclf():
     download_dir = './data_miniimagenet'
     datafile_dir = download_dir + '/miniimagenet/'
     labels_mark = {}
-    marks_to_labels = {}
-    labels_to_marks = {}
+    marks_to_labels = {'mini-imagenet': None, 'tiny-imagenet': None}
+    labels_to_marks = {'mini-imagenet': None, 'tiny-imagenet': None}
     download_dir_tinyIN = './data_tinyimagenet'
     datafile_dir_tinyIN = download_dir_tinyIN + '/tiny-imagenet-200/'
     # labels_mark_tinyIN = None
@@ -603,7 +603,7 @@ class MLclf():
 
 
 if __name__ == '__main__':
-    """
+
     # clf_data = miniimagenet_clf_data()
     MLclf.miniimagenet_download(Download=False)
     # Transform the original data into the format that fits the task for classification:
@@ -614,11 +614,11 @@ if __name__ == '__main__':
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=5, shuffle=True, num_workers=0)
     print('labels_to_marks of mini-imagenet: ', MLclf.labels_to_marks['mini-imagenet'])
     print('marks_to_labels of mini-imagenet: ', MLclf.marks_to_labels['mini-imagenet'])
-
+    print('labels_to_marks of tiny-imagenet: ', MLclf.labels_to_marks['tiny-imagenet'])
     data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 
     print('train_dataset: ', train_dataset, np.shape(train_dataset))
-    """
+
 
     # tiny-imagenet:
     MLclf.tinyimagenet_download(Download=False)
