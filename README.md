@@ -7,6 +7,7 @@
 [![PyPI](https://img.shields.io/pypi/v/mlclf)](https://pypi.org/project/mlclf/)
 [![Downloads](https://static.pepy.tech/personalized-badge/mlclf?period=total&units=international_system&left_color=blue&right_color=green&left_text=Downloads)](https://pepy.tech/project/mlclf)
 
+Because training the full imagenet dataset (1k classes) needs a high computational resource, it is usually hard to quickly check your model on your local computer. The mini-imagenet (100 classes) and tiny-imagenet (200 classes) are way more friendly on a local or personal computer, but the format of them are not friendly for such a usage, e.g. the original raw mini-imagenet data is divided into training/validation/testing sets for the few-shot or meta learning task.
 #### The purpose of this project is:
 > 1. transform the mini-imagenet dataset which is initially created for the few-shot learning to the format that fit the classical classification task. You can also use this package to download and obtain the raw data of the mini-imagenet dataset (for few-shot learning tasks).
 
