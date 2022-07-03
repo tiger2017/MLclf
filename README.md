@@ -8,15 +8,16 @@
 [![Downloads](https://static.pepy.tech/personalized-badge/mlclf?period=total&units=international_system&left_color=blue&right_color=green&left_text=Downloads)](https://pepy.tech/project/mlclf)
 
 #### The purpose of this project is:
-##### 1. transform the mini-imagenet dataset which is initially created for the few-shot learning to the format that fit the classical classification task. You can also use this package to download and obtain the raw data of the mini-imagenet dataset (for few-shot learning tasks).
-##### 2. transform the tiny-imagenet dataset to the format that fit the classical classification task, which can be more easily used (being able to directly input to the Pytorch dataloader) compared to the original raw format.
+> 1. transform the mini-imagenet dataset which is initially created for the few-shot learning to the format that fit the classical classification task. You can also use this package to download and obtain the raw data of the mini-imagenet dataset (for few-shot learning tasks).
 
-#### The original dataset of mini-imagenet includes totally 100 classes, but due to its intention to meta-learning or few-shot learning, the train/validation/test dataset contains different classes. They have respectively 64/16/20 classes.
-#### The original dataset of tiny-imagenet includes totally 200 classes, the train/validation/test dataset contains all classes. They have respectively 100000/10000/10000 images. For example, the training dataset has 500 images for each class.
+> 2. transform the tiny-imagenet dataset to the format that fit the classical classification task, which can be more easily used (being able to directly input to the Pytorch dataloader) compared to the original raw format.
 
-#### In order to make the mini/tiny-imagenet dataset fit the format requirement for the classical classification task. MLclf made a proper transformation (recombination and splitting) of the original mini/tiny-imagenet dataset.
-#### The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
-#### The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 200 classes. Each image has the size 64x64 pixels with 3 channels.
+- [x] The original dataset of mini-imagenet includes totally 100 classes, but due to its intention to meta-learning or few-shot learning, the train/validation/test dataset contains different classes. They have respectively 64/16/20 classes.
+- [x] The original dataset of tiny-imagenet includes totally 200 classes, the train/validation/test dataset contains all classes. They have respectively 100000/10000/10000 images. For example, the training dataset has 500 images for each class.
+
+- [x] In order to make the mini/tiny-imagenet dataset fit the format requirement for the classical classification task. MLclf made a proper transformation (recombination and splitting) of the original mini/tiny-imagenet dataset.
+- [x] The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 100 classes. Each image has the size 84x84 pixels with 3 channels.
+- [x] The transformed dataset of mini-imagenet is divided into train, validation and test dataset, each dataset of which includes 200 classes. Each image has the size 64x64 pixels with 3 channels.
 
 The MLclf package can be found at: https://github.com/tiger2017/MLclf 
                             or at: https://pypi.org/project/MLclf/
@@ -48,7 +49,7 @@ pip install MLclf
 ```
 
 ### Usage
-How to use this package for mini-imagenet:
+How to use this package for **mini-imagenet**:
 ```python
 from MLclf import MLclf
 import torch
@@ -78,7 +79,7 @@ marks_to_labels = MLclf.marks_to_labels['mini-imagenet']
 ```
 ####
 
-You can also obtain the raw data of mini-imagenet from the downloaded pkl files:
+You can also obtain the raw data of **mini-imagenet** from the downloaded pkl files:
 ```python
 from MLclf import MLclf
 
@@ -87,7 +88,7 @@ from MLclf import MLclf
 data_raw_train, data_raw_val, data_raw_test = MLclf.miniimagenet_data_raw()
 ```
 
-How to use this package for tiny-imagenet for the traditional classification task (similarly as mini-imagenet):
+How to use this package for **tiny-imagenet** for the traditional classification task (similarly as mini-imagenet):
 ```python
 from MLclf import MLclf
 import torch
@@ -112,7 +113,7 @@ marks_to_labels = MLclf.marks_to_labels['tiny-imagenet']
 data_raw_train, data_raw_val, data_raw_test = MLclf.tinyimagenet_data_raw()
 ```
 
-If you want to use tiny-imagenet for the few-shot learning task, just change few_shot=True, for example:
+If you want to use **tiny-imagenet** for the few-shot learning task, just change few_shot=True, for example:
 ```python
 train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset(ratio_train=0.6, ratio_val=0.2,
                                                                                      seed_value=None, shuffle=True,
