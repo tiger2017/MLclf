@@ -6,6 +6,7 @@
 [![Python](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/mlclf)](https://pypi.org/project/mlclf/)
 [![Downloads](https://static.pepy.tech/personalized-badge/mlclf?period=total&units=international_system&left_color=blue&right_color=green&left_text=Downloads)](https://pepy.tech/project/mlclf)
+[![DOI](https://zenodo.org/badge/476128273.svg)](https://zenodo.org/badge/latestdoi/476128273)
 
 Training the full imagenet dataset (1k classes) needs a high computational resource, it is usually hard to quickly check your model on your local or personal computer. The mini-imagenet (100 classes) and tiny-imagenet (200 classes) are way more friendly on a local or personal computer, but the format of them are not friendly for the classical or traditional classification task, e.g. the original raw mini-imagenet data is divided into training/validation/testing sets for the few-shot or meta learning task.
 #### The purpose of this project is:
