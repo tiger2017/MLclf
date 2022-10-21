@@ -144,6 +144,23 @@ train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset
 # and in this few-shot learning task's example, 120 classes as training dataset, 40 classes as validation dataset and 40 classes as testing dataset, with 500 images for each class.
 ```
 
+## Citation 
+
+If you want to use this repository, please cite:
+
+```
+@software{xin_cao_2022_7233094,
+  author       = {Xin Cao},
+  title        = {{MLclf: The Project Machine Learning CLassiFication 
+                   for Utilizing Mini-imagenet and Tiny-imagenet.}},
+  month        = oct,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {v0.2.14},
+  doi          = {10.5281/zenodo.7233094},
+  url          = {https://doi.org/10.5281/zenodo.7233094}
+}
+```
 
 
 
