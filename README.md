@@ -51,6 +51,7 @@ The mini-imagenet source data can be also accessed from: https://deepai.org/data
 * [Usage](#usage)
   * [mini-imagenet](#mini-imagenet)
   * [tiny-imagenet](#tiny-imagenet)
+* [Citatioin](#citation)
 
 ### Requirements
 
