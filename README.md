@@ -146,7 +146,7 @@ train_dataset, validation_dataset, test_dataset = MLclf.tinyimagenet_clf_dataset
 
 ## Citation 
 
-If you want to use this repository, please cite:
+If you want to use this MLclf package, please cite:
 
 ```
 @software{xin_cao_2022_7233094,
