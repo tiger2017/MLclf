@@ -152,7 +152,7 @@ If you want to use this MLclf package, please cite:
 @software{xin_cao_2022_7233094,
   author       = {Xin Cao},
   title        = {{MLclf: The Project Machine Learning CLassiFication 
-                   for Utilizing Mini-imagenet and Tiny-imagenet.}},
+                   for Utilizing Mini-imagenet and Tiny-imagenet}},
   month        = oct,
   year         = 2022,
   publisher    = {Zenodo},
