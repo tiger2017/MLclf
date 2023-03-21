@@ -290,7 +290,14 @@ class MLclf():
         else:
             transform = transform
         feature_shape = np.shape(feature)
-        feature_output = torch.empty((feature_shape[0], feature_shape[3], feature_shape[1], feature_shape[2]))
+        for trans in transform.transforms:
+            if isinstance(trans, transforms.Resize):
+                transform_has_resize = True
+                resize_size = trans.size
+        if transform_has_resize:
+            feature_output = torch.empty((feature_shape[0], feature_shape[3], resize_size[0], resize_size[1]))
+        else: 
+            feature_output = torch.empty((feature_shape[0], feature_shape[3], feature_shape[1], feature_shape[2]))
         for i, feature_i in enumerate(feature):
             feature_output[i] = transform(feature_i)
             # feature is a tensor here.
